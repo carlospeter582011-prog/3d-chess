@@ -1,0 +1,22 @@
+name: Inspect plugin
+on:
+  push:
+    paths: ["tools/inspect-trigger.txt"]
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable }
+      - run: |
+          flutter --version
+          flutter pub cache add stockfish --version 1.8.1
+          D=$(ls -d $HOME/.pub-cache/hosted/pub.dev/stockfish-1.8.1)
+          echo "== tree"; (cd $D && find . -maxdepth 3 -not -path "./src/*" | head -80; du -sh .)
+          echo "== pubspec"; cat $D/pubspec.yaml
+          echo "== android/build.gradle"; cat $D/android/build.gradle
+          echo "== android files"; find $D/android -type f | head -30
+          echo "== AndroidManifest"; cat $D/android/src/main/AndroidManifest.xml
+          echo "== CMakeLists"; find $D -name CMakeLists.txt | head; cat $D/android/CMakeLists.txt 2>/dev/null | head -60
+          echo "== gradle.properties/settings"; cat $D/android/settings.gradle 2>/dev/null; cat $D/android/gradle.properties 2>/dev/null
+          echo "== dart"; ls $D/lib $D/lib/src 2>/dev/null; sed -n 1,80p $D/lib/stockfish.dart
