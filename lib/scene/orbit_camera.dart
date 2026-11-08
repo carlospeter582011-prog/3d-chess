@@ -163,7 +163,7 @@ class OrbitCamera {
   /// Advances damping / animation by [dt] seconds. Returns true when the view changed.
   bool update(double dt) {
     final beforeEye = eye, beforeTarget = target, beforeFov = fov;
-    final k = 1 - math.pow(1 - damping, math.max(0.0, dt) * 60);
+    final double k = 1 - math.pow(1 - damping, math.max(0.0, dt) * 60).toDouble();
 
     final fly = _fly;
     if (fly != null) {
