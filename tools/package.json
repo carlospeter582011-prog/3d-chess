@@ -1,0 +1,12 @@
+{
+  "name": "chess3d-asset-tools",
+  "private": true,
+  "type": "module",
+  "description": "Converts the original web (WebP) GLB models into Filament-friendly GLBs and generates the table and marker models.",
+  "dependencies": {
+    "@gltf-transform/core": "^4.0.0",
+    "@gltf-transform/extensions": "^4.0.0",
+    "@gltf-transform/functions": "^4.0.0",
+    "sharp": "^0.34.0"
+  }
+}
