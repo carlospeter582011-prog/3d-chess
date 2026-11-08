@@ -90,12 +90,13 @@ class MenuScreen extends StatelessWidget {
                       onChanged: (c) => onSettings(settings.copyWith(humanColor: c)),
                     ),
                     const SizedBox(height: 16),
-                    Row(crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [
-                      const _Heading('Bot strength'),
-                      const Spacer(),
+                    Row(children: [
+                      const Expanded(child: _Heading('Bot strength')),
                       Text('${settings.elo} Elo', key: const Key('elo-label'), style: const TextStyle(color: C.gold2, fontSize: 16, fontWeight: FontWeight.w700)),
                       const SizedBox(width: 8),
-                      Text(eloName(settings.elo), style: const TextStyle(color: C.muted, fontSize: 13)),
+                      Flexible(
+                        child: Text(eloName(settings.elo), overflow: TextOverflow.ellipsis, style: const TextStyle(color: C.muted, fontSize: 13)),
+                      ),
                     ]),
                     Slider(
                       key: const Key('elo-slider'),

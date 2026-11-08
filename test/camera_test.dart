@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:chess3d/chess/rules.dart';
 import 'package:chess3d/chess/types.dart';
 import 'package:chess3d/scene/board_model.dart';
-import 'package:chess3d/scene/board_scene.dart';
 import 'package:chess3d/scene/math3.dart';
 import 'package:chess3d/scene/orbit_camera.dart';
 import 'package:flutter_test/flutter_test.dart';

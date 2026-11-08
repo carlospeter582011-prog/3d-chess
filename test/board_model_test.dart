@@ -80,7 +80,7 @@ void main() {
       final obj = m.pieceOn('b8')!;
       expect(obj.type, PT.n);
       expect(Slots.typeOf(obj.slot), PT.n);
-      expect(m.pieceCount, 2);
+      expect(m.pieceCount, 3); // two kings + the new knight (the black knight was captured)
     });
 
     test('moving from an empty square is an error', () async {
