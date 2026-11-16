@@ -30,17 +30,8 @@ h1, h2, h3, p { margin: 0; }
 .status.check { color: #fff; background: rgba(160, 40, 28, 0.9); border-color: rgba(255, 120, 100, 0.5); }
 .status.over { color: #1a1208; background: linear-gradient(180deg, var(--gold-2), var(--gold)); border-color: transparent; }
 .status.think { color: var(--gold-2); }
-.pcard { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); backdrop-filter: blur(8px); min-height: 46px; }
-.pcard.active { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
-.pcard .dot { width: 14px; height: 14px; border-radius: 50%; flex: none; border: 1px solid rgba(255,255,255,0.4); }
-.dot.w { background: #f1dfb8; } .dot.b { background: #2a1b12; }
-.pinfo { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
-.pinfo small { color: var(--muted); font-size: 12px; }
-.captured { display: flex; flex-wrap: wrap; font-size: 20px; line-height: 1; margin-left: auto; letter-spacing: -2px; }
-.captured i { font-style: normal; }
 .cw { color: #f6e9c8; text-shadow: 0 0 2px #000, 0 0 1px #000; }
 .cb { color: #3a2619; text-shadow: 0 0 2px rgba(255,255,255,.55); }
-.pcard em { font-style: normal; color: var(--ok); font-weight: 700; font-size: 13px; }
 .moves { display: flex; gap: 12px; overflow-x: auto; white-space: nowrap; padding: 8px 12px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); font-size: 14px; backdrop-filter: blur(8px); scrollbar-width: none; min-height: 38px; align-items: center; }
 .moves::-webkit-scrollbar { display: none; }
 .mv i { color: var(--muted); font-style: normal; margin-right: 2px; }
@@ -59,7 +50,7 @@ h1, h2, h3, p { margin: 0; }
   .side { position: relative; grid-column: 2; grid-row: 1; pointer-events: auto; background: linear-gradient(180deg, #1c1510, #120d09); border-left: 1px solid var(--line); padding: 16px; justify-content: flex-start; gap: 12px; }
   .side-top { flex: 1; min-height: 0; }
   .side-top .moves { flex: 1; min-height: 0; flex-wrap: wrap; align-content: flex-start; overflow-x: hidden; overflow-y: auto; white-space: normal; gap: 6px 14px; padding: 12px; scrollbar-width: thin; }
-  .side .pcard, .side .moves, .side .status, .side .icon-btn, .side .controls button { backdrop-filter: none; background: rgba(255,255,255,0.045); }
+  .side .moves, .side .status, .side .icon-btn, .side .controls button { backdrop-filter: none; background: rgba(255,255,255,0.045); }
   .controls { flex-wrap: wrap; } .controls button { flex: 1 1 28%; }
 }
 

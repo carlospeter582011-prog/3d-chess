@@ -1,37 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Game, GameSnapshot } from '../chess/Game'
-import type { Color, PType } from '../three/Board3D'
-import { GLYPH, VALUE } from './glyphs'
-
-function Captured({ lost, color }: { lost: PType[]; color: Color }) {
-  const order: PType[] = ['q', 'r', 'b', 'n', 'p']
-  const sorted = [...lost].sort((a, b) => order.indexOf(a) - order.indexOf(b))
-  return <span className={`captured ${color === 'w' ? 'cw' : 'cb'}`} aria-label="captured pieces">{sorted.map((t, i) => <i key={i}>{GLYPH[t]}</i>)}</span>
-}
-
-function material(s: GameSnapshot, c: Color) {
-  const gain = (lost: PType[]) => lost.reduce((a, t) => a + VALUE[t], 0)
-  const mine = gain(s.captured[c === 'w' ? 'b' : 'w']) // what I captured = what the other side lost
-  const theirs = gain(s.captured[c])
-  return mine - theirs
-}
-
-function PlayerCard({ s, color, label, sub }: { s: GameSnapshot; color: Color; label: string; sub?: string }) {
-  const lost = s.captured[color === 'w' ? 'b' : 'w'] // pieces this player has captured
-  const diff = material(s, color)
-  const active = s.status === 'playing' && s.turn === color
-  return (
-    <div className={`pcard ${active ? 'active' : ''}`}>
-      <span className={`dot ${color === 'w' ? 'w' : 'b'}`} />
-      <div className="pinfo">
-        <b>{label}</b>
-        {sub && <small>{sub}</small>}
-      </div>
-      <Captured lost={lost} color={color === 'w' ? 'b' : 'w'} />
-      {diff > 0 && <em>+{diff}</em>}
-    </div>
-  )
-}
 
 export function Hud({ game, s, onMenu, onSettings }: { game: Game; s: GameSnapshot; onMenu: () => void; onSettings: () => void }) {
   const movesRef = useRef<HTMLDivElement>(null)
@@ -39,8 +7,6 @@ export function Hud({ game, s, onMenu, onSettings }: { game: Game; s: GameSnapsh
   const [confirm, setConfirm] = useState<null | 'resign' | 'draw' | 'new'>(null)
   const bot = s.config.mode === 'bot'
   const human = s.config.humanColor
-  const opp: Color = bot ? (human === 'w' ? 'b' : 'w') : 'b'
-  const me: Color = bot ? human : 'w'
 
   useEffect(() => { const el = movesRef.current; if (el) { el.scrollLeft = el.scrollWidth; el.scrollTop = el.scrollHeight } }, [s.history.length])
 
@@ -75,7 +41,6 @@ export function Hud({ game, s, onMenu, onSettings }: { game: Game; s: GameSnapsh
           <div className={`status ${tone}`} role="status" aria-live="polite">{status}</div>
           <button className="icon-btn" onClick={onSettings} aria-label="Settings">⚙</button>
         </div>
-        <PlayerCard s={s} color={opp} label={bot ? `Bot · ${s.config.elo}` : opp === 'b' ? 'Black' : 'White'} sub={bot ? (opp === 'w' ? 'White' : 'Black') : undefined} />
         <div className="moves" ref={movesRef} aria-label="Move list">
           {pairs.length === 0 && <span className="muted">Moves appear here</span>}
           {pairs.map((p) => (
@@ -84,7 +49,6 @@ export function Hud({ game, s, onMenu, onSettings }: { game: Game; s: GameSnapsh
         </div>
       </div>
       <div className="side-bottom">
-        <PlayerCard s={s} color={me} label={bot ? 'You' : me === 'w' ? 'White' : 'Black'} sub={bot ? (me === 'w' ? 'White' : 'Black') : undefined} />
         <div className="controls">
           <button disabled={!s.canUndo} onClick={() => game.undo()} title="Undo"><b>↶</b><span>Undo</span></button>
           <button onClick={() => game.board.flipView()} title="Flip view"><b>⟳</b><span>Flip</span></button>
